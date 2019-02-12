@@ -24,7 +24,17 @@ public class CountryNameController {
 
             return filtered;
         }
-
+    @RequestMapping("/letters")
+    public ArrayList<Country> countriesByLength(@RequestParam(value="letters", defaultValue = "1")int letters){
+        ArrayList<Country> byLength = new ArrayList<>();
+        for(Country a : CountriesApplication.countryList.countryList){
+            if (a.getName().length() >= letters){
+               byLength.add(a);
+            }
+        }
+        byLength.sort((c1,c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return byLength;
+    }
 
     @RequestMapping("/all")
     public ArrayList<Country> getAllCountry() {
